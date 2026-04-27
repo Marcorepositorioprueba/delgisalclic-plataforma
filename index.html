@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0">
+    <title>Del Gis al Clic | Dr. Marco Antonio León Zaragoza</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-color: #1a3a5a;
+            --gold-subtle: #c5a059;
+            --bg-color: #ffffff;
+            --font-main: 'EB Garamond', serif;
+        }
+
+        body { background-color: var(--bg-color); color: #333; overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* NAVEGACIÓN */
+        .header-main { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; padding: 1rem 0; }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; flex-wrap: wrap; gap: 1rem; }
+        .nav-links { display: flex; align-items: center; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--accent-color); font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+
+        .btn-adquirir-nav { background: var(--accent-color); color: white !important; padding: 0.6rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
+        
+        /* SELECTOR DE IDIOMA */
+        .lang-selector { display: flex; gap: 10px; margin-left: 20px; font-size: 0.75rem; font-weight: bold; }
+        .lang-btn { cursor: pointer; color: #ccc; transition: 0.3s; }
+        .lang-btn.active { color: var(--gold-subtle); border-bottom: 1px solid; }
+
+        /* CINTILLO */
+        .ticker-wrap { width: 100%; overflow: hidden; background: #fcfaf7; color: var(--accent-color); padding: 10px 0; border-bottom: 1px solid #eee; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker 40s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 4rem; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* HERO RESPONSIVO */
+        .hero-header { padding: 4rem 1rem 2rem 1rem; text-align: center; }
+        .hero-main-title { font-size: 3rem; font-family: var(--font-main); color: var(--accent-color); margin-bottom: 0.5rem; line-height: 1.2; }
+        .hero-author { font-size: 1.2rem; color: var(--gold-subtle); letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 1.5rem; }
+        .hero-quote { font-family: var(--font-main); font-style: italic; font-size: 1.3rem; color: #666; max-width: 800px; margin: 0 auto 3rem auto; line-height: 1.5; padding: 0 1rem; }
+
+        .hero-interactive-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 1rem 6rem 1rem; }
+        
+        .radar-mega-box { background: #fff; padding: 2.5rem; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
+        .state-select-premium { width: 100%; background: transparent; color: var(--accent-color); border: none; border-bottom: 1px solid var(--gold-subtle); font-family: var(--font-main); font-size: 1.3rem; padding: 0.5rem; margin-bottom: 1.5rem; cursor: pointer; text-align: center; font-weight: bold; outline: none; }
+
+        .radar-desc { font-size: 0.9rem; color: #777; font-style: italic; text-align: center; margin-bottom: 2rem; line-height: 1.4; padding: 0 2rem; }
+
+        .state-summary-panel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #f0f0f0; }
+        .summary-item span { display: block; font-size: 0.6rem; text-transform: uppercase; color: #999; margin-bottom: 4px; }
+        .summary-item strong { font-size: 1rem; color: var(--accent-color); }
+
+        /* LIBRO */
+        .book-container { perspective: 2500px; width: 320px; height: 450px; margin: 0 auto; }
+        .book-flip { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1.2s; transform: rotateY(-15deg); }
+        .page { position: absolute; width: 100%; height: 100%; top: 0; left: 0; transform-origin: left; transition: transform 1.5s; background: white; border-radius: 2px 5px 5px 2px; }
+        .p-front { z-index: 3; background: url('assets/portada.jpg') no-repeat center/cover; }
+        .p-legal { z-index: 2; background: url('assets/paginalegal.jpg') no-repeat center/cover; }
+        .p-index { z-index: 1; background: url('assets/indice.jpg') no-repeat center/cover; }
+        .book-container:hover .p-front { transform: rotateY(-160deg); }
+        .book-container:hover .p-legal { transform: rotateY(-140deg); transition-delay: 0.1s; }
+
+        /* MODAL */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 20, 35, 0.98); display: none; align-items: center; justify-content: center; z-index: 10000; overflow-y: auto; padding: 1rem; }
+        .modal-content { background:#fff; padding:3rem 2rem; max-width:850px; width:100%; position:relative; border-top: 8px solid var(--gold-subtle); box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
+        
+        .adquirir-options { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+        .option-box { padding: 1.5rem; border: 1px solid #eee; border-radius: 8px; text-align: center; }
+        .option-title { font-family: var(--font-main); font-size: 1.5rem; color: var(--accent-color); margin-bottom: 1rem; }
+        
+        .input-premium { width: 100%; padding: 1rem; border: 1px solid #eee; font-family: inherit; font-size: 1rem; background: #fafafa; margin-bottom: 1.5rem; border-radius: 4px; }
+        .form-label { font-size: 0.8rem; font-weight: bold; color: var(--accent-color); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+
+        @media (max-width: 900px) {
+            .nav-container { justify-content: center; padding: 1rem; }
+            .nav-links { gap: 1rem; font-size: 0.7rem; margin-bottom: 1rem; }
+            .hero-interactive-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .hero-main-title { font-size: 2.2rem; }
+            .state-summary-panel { grid-template-columns: repeat(2, 1fr); }
+            .adquirir-options { grid-template-columns: 1fr; }
+        }
+
+        @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+        .reveal { opacity: 0; transform: translateY(20px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/tendencias.js"></script>
+</head>
+<body>
+
+    <header class="header-main">
+        <div class="nav-container">
+            <div class="logo" style="font-weight: 900; letter-spacing: 3px; color: var(--accent-color);">DEL GIS AL CLIC</div>
+            <div style="display:flex; align-items:center;">
+                <ul class="nav-links">
+                    <li><a href="#numeralia" data-i18n="nav-numeralia">Numeralia</a></li>
+                    <li><a href="#investigacion" data-i18n="nav-investigacion">Investigación</a></li>
+                    <li><a href="#tendencias" data-i18n="nav-tendencias">Tendencias</a></li>
+                    <li><button class="btn-adquirir-nav" onclick="openModal()" data-i18n="nav-btn-adquirir">Adquirir</button></li>
+                </ul>
+                <div class="lang-selector">
+                    <span class="lang-btn active" onclick="changeLanguage('es')" id="btn-es">🇪🇸 ES</span>
+                    <span style="color:#eee">|</span>
+                    <span class="lang-btn" onclick="changeLanguage('en')" id="btn-en">🇺🇸 EN</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item"><span>◈</span> <span data-i18n="ticker-1">PISA 2022: Crisis en competencias matemáticas básicas</span> <span style="font-size:0.6rem; opacity:0.6;">(OCDE)</span></div>
+            <div class="ticker-item"><span>◈</span> <span data-i18n="ticker-2">Gasto público educativo cayó al 2.96% del PIB</span> <span style="font-size:0.6rem; opacity:0.6;">(México Evalúa)</span></div>
+            <div class="ticker-item"><span>◈</span> <span data-i18n="ticker-3">4.3 millones de menores en rezago educativo</span> <span style="font-size:0.6rem; opacity:0.6;">(CONEVAL)</span></div>
+        </div>
+    </div>
+
+    <main>
+        <header class="hero-header reveal">
+            <div class="container">
+                <h1 class="hero-main-title" data-i18n="hero-title">Del Gis al Clic, la educación en una nueva encrucijada</h1>
+                <span class="hero-author">Dr. Marco Antonio León Zaragoza</span>
+                <p class="hero-quote" data-i18n="hero-quote">"Del Gis al Clic es un viaje del 'deber ser' al 'ser', de la teoría a la realidad del aula. Es una invitación a dialogar, a comprender y a participar en la construcción de la educación que definirá el futuro de México."</p>
+            </div>
+        </header>
+
+        <section id="numeralia" class="hero-interactive-grid">
+            <div class="radar-mega-box reveal">
+                <p class="radar-desc" data-i18n="radar-desc">Este explorador permite visualizar la brecha entre el "deber ser" normativo y la realidad operativa de cada entidad federativa mediante un análisis multidimensional.</p>
+                <select id="stateSelector" class="state-select-premium" onchange="updateStateProfile(this.value)"></select>
+                <div style="height: 400px; width: 100%;">
+                    <canvas id="radarChart"></canvas>
+                </div>
+                <div id="stateSummary" class="state-summary-panel">
+                    <div class="summary-item"><span data-i18n="sum-esc">Escolaridad</span><strong id="sumEsc">--</strong></div>
+                    <div class="summary-item"><span data-i18n="sum-ana">Analfabetismo</span><strong id="sumAna">--</strong></div>
+                    <div class="summary-item"><span data-i18n="sum-rp">Reprob. Pri</span><strong id="sumRP">--</strong></div>
+                    <div class="summary-item"><span data-i18n="sum-rs">Reprob. Sec</span><strong id="sumRS">--</strong></div>
+                </div>
+                <span style="display:block; text-align:center; margin-top:2rem; font-size:0.65rem; color:#ccc; font-style:italic;" data-i18n="chart-source">Fuente: SEP. Serie Histórica.</span>
+            </div>
+
+            <div class="hero-book-area reveal" style="text-align: center;">
+                <div class="book-container">
+                    <div class="book-flip">
+                        <div style="position: absolute; width: 45px; height: 100%; background: var(--accent-color); transform: rotateY(-90deg) translateZ(22.5px); left: -22.5px;"></div>
+                        <div class="page p-index" style="background: url('assets/indice.jpg') no-repeat center/cover; z-index: 1;"></div>
+                        <div class="page p-legal" style="background: url('assets/paginalegal.jpg') no-repeat center/cover; z-index: 2;"></div>
+                        <div class="page p-front" style="background: url('assets/portada.jpg') no-repeat center/cover; z-index: 3;"></div>
+                    </div>
+                </div>
+                <div style="margin-top: 3rem;">
+                    <button onclick="openModal()" class="btn-adquirir-nav" style="padding: 1.2rem 3rem;" data-i18n="hero-btn-adquirir">Adquirir Ejemplar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal" style="padding: 4rem 0; text-align: center;">
+            <div class="container" style="padding: 0 2rem;">
+                <p style="max-width: 900px; margin: 0 auto; color: var(--accent-color); font-size: 1.5rem; font-family: var(--font-main); font-style: italic;" data-i18n="quote-mid">
+                    "La educación competitiva tiene como base irrenunciable el dominio de las ciencias duras y el pensamiento lógico; es el andamiaje sobre el cual se construye la soberanía intelectual."
+                </p>
+                <div style="width: 80px; border-bottom: 2px solid var(--gold-subtle); margin: 2rem auto;"></div>
+            </div>
+        </section>
+
+        <section id="tendencias" style="padding:6rem 1rem; background: #fcfaf7;">
+            <div class="container">
+                <h2 class="section-title-premium" data-i18n="tendencias-title">Tendencias Nacionales</h2>
+                <div style="background:#fff; padding:2rem; border: 1px solid #eee; box-shadow: 0 20px 50px rgba(0,0,0,0.03);">
+                    <div style="display:flex; justify-content: center; gap: 0.5rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                        <button id="btnAbandono" class="selector-btn active" onclick="updateChart('Abandono')" data-i18n="btn-abandono">Abandono</button>
+                        <button id="btnCobertura" class="selector-btn" onclick="updateChart('Cobertura')" data-i18n="btn-cobertura">Cobertura</button>
+                        <button id="btnEficiencia" class="selector-btn" onclick="updateChart('Eficiencia')" data-i18n="btn-eficiencia">Eficiencia</button>
+                    </div>
+                    <div id="currentChartTitle" style="text-align: center; font-size: 1.5rem; font-family: var(--font-main); margin-bottom: 2rem; color: var(--accent-color);">--</div>
+                    <div style="height: 350px;"><canvas id="mainChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="investigacion" style="padding:6rem 1.5rem;">
+            <div class="container">
+                <h2 class="section-title-premium" data-i18n="investigacion-title">Investigación</h2>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:3rem;">
+                    <div class="reveal" style="text-align: center;">
+                        <h4 style="font-family: var(--font-main); font-size: 1.6rem; color: var(--accent-color); margin-bottom: 1rem;" data-i18n="dim-1-title">La Trampa de los Extremos</h4>
+                        <p style="color:#666; line-height:1.6; font-style: italic;" data-i18n="dim-1-body">"La historia de la política educativa es un péndulo entre el 'Estado Pedagogo' y el 'Estado Gerente'."</p>
+                    </div>
+                    <div class="reveal" style="text-align: center;">
+                        <h4 style="font-family: var(--font-main); font-size: 1.6rem; color: var(--accent-color); margin-bottom: 1rem;" data-i18n="dim-2-title">El Laberinto Docente</h4>
+                        <p style="color:#666; line-height:1.6; font-style: italic;" data-i18n="dim-2-body">"Se le asigna al maestro una responsabilidad monumental mientras se le retiran las herramientas."</p>
+                    </div>
+                    <div class="reveal" style="text-align: center;">
+                        <h4 style="font-family: var(--font-main); font-size: 1.6rem; color: var(--accent-color); margin-bottom: 1rem;" data-i18n="dim-3-title">La Síntesis del Futuro</h4>
+                        <p style="color:#666; line-height:1.6; font-style: italic;" data-i18n="dim-3-body">"Romper el péndulo significa rescatar el rigor del 'gis' y el potencial del 'clic'."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacto" style="padding:6rem 1.5rem; background:#fcfaf7;">
+            <div class="container" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items:center; gap:4rem; max-width: 1000px; margin: 0 auto;">
+                <div class="reveal">
+                    <h2 style="font-size:2.5rem; font-family: var(--font-main); color: var(--accent-color);">Dr. Marco Antonio León Zaragoza</h2>
+                    <p style="font-size:1.1rem; font-weight: bold; color:var(--gold-subtle); margin:1rem 0;">leonmarcoantonio@gmail.com</p>
+                    <p style="color:#666; line-height: 1.6;" data-i18n="author-desc">Especialista en modelos educativos y gestión pública.</p>
+                </div>
+                <div class="reveal" style="text-align: center;">
+                    <img src="assets/Google_AI_Studio_2026-01-03T02_33_30.885Z.png" style="max-width: 100%; height: auto; border: 10px solid white; box-shadow: 15px 15px 0 var(--gold-subtle);">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="adquirirModal" class="modal">
+        <div class="modal-content">
+            <span style="position:absolute; top:1rem; right:1.5rem; font-size:2rem; cursor:pointer; color:#ccc;" onclick="closeModal()">&times;</span>
+            <h2 style="font-family: var(--font-main); font-size: 2rem; color: var(--accent-color); margin-bottom: 1rem;" data-i18n="modal-title">Adquirir la obra</h2>
+            
+            <div class="adquirir-options">
+                <div class="option-box">
+                    <h3 class="option-title" data-i18n="opt-buy-title">Compra Directa</h3>
+                    <p style="font-size: 0.85rem; color:#666; margin-bottom: 1.5rem;" data-i18n="opt-buy-text">Adquiera su ejemplar físico con envío seguro a todo México.</p>
+                    <a href="https://listado.mercadolibre.com.mx/del-gis-al-clic" target="_blank" class="btn-ml">Mercado Libre</a>
+                </div>
+                <div class="option-box">
+                    <h3 class="option-title" data-i18n="opt-contact-title">Vínculo Académico</h3>
+                    <p style="font-size: 0.85rem; color:#666; margin-bottom: 1.5rem;" data-i18n="opt-contact-text">Para presentaciones, foros o pedidos institucionales.</p>
+                    <button class="btn-contact-trigger" onclick="showForm()" data-i18n="opt-contact-btn">Contactar</button>
+                </div>
+            </div>
+
+            <div id="formContainer" style="display:none; margin-top:3rem;">
+                <form action="https://formspree.io/f/leonmarcoantonio@gmail.com" method="POST">
+                    <label class="form-label" data-i18n="form-name">Nombre completo*</label>
+                    <input type="text" name="name" required class="input-premium">
+                    <label class="form-label" data-i18n="form-email">Correo electrónico*</label>
+                    <input type="email" name="email" required class="input-premium">
+                    <label class="form-label" data-i18n="form-subject">Motivo</label>
+                    <select name="subject" class="input-premium" id="formSubject">
+                        <!-- Llenado por JS -->
+                    </select>
+                    <textarea name="message" rows="4" class="input-premium" id="formMessage"></textarea>
+                    <button type="submit" style="background:var(--accent-color); color:white; padding:1.2rem; width:100%; border:none; font-weight:bold; text-transform:uppercase; cursor:pointer;" data-i18n="form-btn">Enviar solicitud</button>
+                </form>
+            </div>
+
+            <button class="btn-close-text" onclick="closeModal()" data-i18n="modal-close">Seguir explorando</button>
+        </div>
+    </div>
+
+    <footer style="padding:4rem 0; background:#fff; border-top: 1px solid #eee; text-align:center;">
+        <h2 style="letter-spacing:5px; font-size: 1rem; color: var(--accent-color);">DEL GIS AL CLIC</h2>
+        <p style="color: #bbb; font-size: 0.8rem; margin-bottom: 2rem;">&copy; 2026 Dr. Marco Antonio León Zaragoza</p>
+        
+        <div style="display:inline-block; padding: 0.6rem 2rem; border: 1px solid #f0f0f0; border-radius: 30px; background: #fafafa;">
+            <span style="font-size: 0.7rem; color: #aaa; text-transform: uppercase; letter-spacing: 2px; font-weight: bold;" data-i18n="impact-label">Impacto en la red:</span>
+            <strong id="visitorCount" style="color: var(--gold-subtle); margin-left: 10px; font-family: monospace; font-size: 1.1rem;">64</strong>
+            <span style="font-size: 0.7rem; color: #aaa; margin-left: 5px;" data-i18n="impact-unit">Consultas académicas</span>
+        </div>
+    </footer>
+
+    <script>
+        function openModal() { document.getElementById('adquirirModal').style.display = 'flex'; document.getElementById('formContainer').style.display = 'none'; }
+        function closeModal() { document.getElementById('adquirirModal').style.display = 'none'; }
+        function showForm() { document.getElementById('formContainer').style.display = 'block'; }
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal); 
+    </script>
+</body>
+</html>

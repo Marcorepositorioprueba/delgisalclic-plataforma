@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0">
+    <title>Del Gis al Clic | Portal de Investigación Educativa</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <style>
+        /* ESTILOS DE IMPACTO V4.0 - INVESTIGACIÓN PREMIUM */
+        :root {
+            --accent-color: #1a3a5a;
+            --gold-subtle: #c5a059;
+            --bg-color: #fcfaf7;
+            --alert-red: #a33b3b;
+        }
+
+        /* TICKER DE REALIDAD */
+        .ticker-wrap {
+            width: 100%; overflow: hidden; background: var(--accent-color); 
+            color: #fff; padding: 10px 0; position: relative; z-index: 10;
+        }
+        .ticker {
+            display: inline-block; white-space: nowrap; padding-right: 100%;
+            animation: ticker 60s linear infinite;
+        }
+        .ticker-item { display: inline-block; padding: 0 4rem; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 500; }
+        .ticker-item span { color: var(--gold-subtle); font-weight: bold; margin-right: 10px; }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* NUMERALIA DE IMPACTO */
+        .numeralia-section { padding: 6rem 0; background: #111; color: #fff; text-align: center; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-top: 4rem; }
+        .stat-card { padding: 2rem; border: 1px solid #333; transition: 0.4s; }
+        .stat-card:hover { border-color: var(--gold-subtle); background: #1a1a1a; }
+        .stat-number { font-size: 3.5rem; font-weight: 800; color: var(--gold-subtle); display: block; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; color: #999; }
+
+        /* MULTIMEDIA DEBATE */
+        .debate-section { padding: 10rem 0; background: var(--bg-color); }
+        .video-placeholder { 
+            width: 100%; aspect-ratio: 16/9; background: #000; 
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold-subtle); border: 1px solid #ddd;
+            position: relative; cursor: pointer;
+        }
+        .video-placeholder::before { content: "▶"; font-size: 4rem; opacity: 0.7; }
+
+        /* SECCIÓN VALOR REVELADO */
+        .value-section { padding: 10rem 0; background: #fff; position: relative; }
+        .value-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4rem; margin-top: 5rem; }
+        .value-item { text-align: center; }
+        .value-icon { font-size: 3rem; color: var(--gold-subtle); margin-bottom: 1.5rem; display: block; }
+        .value-item h4 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent-color); }
+        .value-item p { font-size: 1.1rem; color: #666; line-height: 1.4; }
+
+        .cta-break { 
+            background: var(--accent-color); 
+            color: white; 
+            padding: 8rem 0; 
+            text-align: center; 
+            margin: 4rem 0;
+            background-image: linear-gradient(rgba(26, 58, 90, 0.92), rgba(26, 58, 90, 0.92)), url('assets/esquema.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .cta-break h2 { font-size: 3rem; margin-bottom: 2rem; font-style: italic; font-weight: 400; }
+
+        /* LIBRO OJEABLE CONSOLIDADO */
+        .book-container { perspective: 2500px; width: 450px; height: 630px; margin: 0 auto; }
+        .book-flip { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1); transform: rotateY(-20deg); }
+        .book-container:hover .book-flip { transform: rotateY(0deg) translateX(80px); }
+        .page { position: absolute; width: 100%; height: 100%; top: 0; left: 0; transform-origin: left; transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1); background: white; box-shadow: 0 5px 25px rgba(0,0,0,0.1); border-radius: 2px 5px 5px 2px; }
+        .p-front { z-index: 3; background: url('assets/portada.jpg') no-repeat center/cover; border-left: 5px solid rgba(0,0,0,0.1); }
+        .p-legal { z-index: 2; background: url('assets/paginalegal.jpg') no-repeat center/cover; }
+        .p-index { z-index: 1; background: url('assets/indice.jpg') no-repeat center/cover; }
+        .book-container:hover .p-front { transform: rotateY(-155deg); }
+        .book-container:hover .p-legal { transform: rotateY(-135deg); transition-delay: 0.15s; }
+        .book-spine { position: absolute; width: 50px; height: 100%; background: var(--accent-color); transform: rotateY(-90deg) translateZ(25px); left: -25px; }
+
+        /* MODAL PREMIUM REESTRUCTURADO */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 20, 35, 0.95);
+            backdrop-filter: blur(8px);
+            display: none; align-items: center; justify-content: center; z-index: 10000;
+        }
+        .modal-content {
+            background: var(--bg-color);
+            padding: 4.5rem;
+            border-radius: 2px;
+            max-width: 650px;
+            width: 95%;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            border-top: 6px solid var(--gold-subtle);
+        }
+        .close-btn {
+            position: absolute; top: 1.5rem; right: 2rem; font-size: 2.5rem; cursor: pointer;
+            color: #999; transition: 0.3s;
+        }
+        .close-btn:hover { color: var(--accent-color); transform: rotate(90deg); }
+
+        .modal-header-pro h2 {
+            font-size: 2.8rem;
+            font-family: var(--font-main);
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        .modal-header-pro p {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .form-pro { display: flex; flex-direction: column; gap: 1.2rem; }
+        .input-pro {
+            padding: 1.2rem 1.5rem;
+            border: 1px solid #e0e0e0;
+            background: white;
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border-radius: 0;
+        }
+        .input-pro:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .btn-confirm-final {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.4s;
+            margin-top: 1rem;
+        }
+        .btn-confirm-final:hover {
+            background: var(--gold-subtle);
+            letter-spacing: 5px;
+            box-shadow: 0 10px 30px rgba(197, 160, 89, 0.3);
+        }
+
+        /* REVEAL ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 1s all ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <header class="header-main">
+        <nav class="nav-container container">
+            <div class="logo" style="font-weight: 900; letter-spacing: 3px; color: var(--accent-color);">DEL GIS AL CLIC</div>
+            <ul class="nav-links">
+                <li><a href="#investigacion">Investigación</a></li>
+                <li><a href="#numeralia">Numeralia</a></li>
+                <li><a href="#debate">Debate</a></li>
+                <li><button class="btn-adquirir" onclick="openModal()" style="background:var(--accent-color); color:white; border:none; padding:0.6rem 1.5rem; cursor:pointer; border-radius:4px; font-weight:bold; text-transform:uppercase;">Vincular</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CINTILLO DE DATOS CRÍTICOS -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <div class="ticker-item"><span>•</span> PISA 2022: 2 de cada 3 estudiantes mexicanos no logran resolver problemas matemáticos básicos. <span class="ticker-source">(OCDE, 2023)</span></div>
+            <div class="ticker-item"><span>•</span> Gasto público en educación cayó al 2.96% del PIB, el nivel más bajo en 12 años. <span class="ticker-source">(México Evalúa, 2024)</span></div>
+            <div class="ticker-item"><span>•</span> 4.3 millones de menores presentan rezago educativo; un incremento del 4% post-pandemia. <span class="ticker-source">(CONEVAL, 2023)</span></div>
+            <div class="ticker-item"><span>•</span> Solo el 46% de las primarias públicas cuentan con computadoras para fines pedagógicos. <span class="ticker-source">(INEGI, 2023)</span></div>
+            <div class="ticker-item"><span>•</span> México ocupa el último lugar en matemáticas y ciencias entre los países de la OCDE. <span class="ticker-source">(PISA, 2023)</span></div>
+            <div class="ticker-item"><span>•</span> Un estudiante mexicano tardaría 27 años en alcanzar el nivel promedio de lectura de la OCDE. <span class="ticker-source">(Banco Mundial, 2022)</span></div>
+            <div class="ticker-item"><span>•</span> 700 mil jóvenes abandonan el sistema escolar cada año antes de concluir el bachillerato. <span class="ticker-source">(IMCO, 2023)</span></div>
+        </div>
+    </div>
+
+    <main>
+        <!-- HERO (Resto del código igual...) -->
+        <section class="hero container">
+            <div class="hero-content">
+                <h1 class="hero-title" style="font-size:4.5rem; line-height:1;">Del Gis al Clic</h1>
+                <p class="hero-subtitle" style="font-size:1.8rem; margin:1.5rem 0; color:var(--accent-color); font-style:italic;">Hacia una síntesis necesaria en la encrucijada educativa</p>
+                <div class="hero-cta">
+                    <button onclick="openModal()" class="btn-adquirir" style="padding:1.2rem 3rem; font-size:1.1rem; border-radius:4px;">Acceder a la Investigación</button>
+                    <a href="#investigacion" style="margin-left: 20px; color: var(--accent-color); text-decoration: none; font-weight: bold; border-bottom: 2px solid var(--gold-subtle);">Explorar Tesis</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="book-container">
+                    <div class="book-flip">
+                        <div class="book-spine"></div>
+                        <div class="page p-index"></div>
+                        <div class="page p-legal"></div>
+                        <div class="page p-front"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN NUMERALIA -->
+        <section id="numeralia" class="numeralia-section">
+            <div class="container">
+                <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">La Educación en Cifras</h2>
+                <p style="color: #999; max-width: 600px; margin: 0 auto;">Datos reales que fundamentan la necesidad de romper el péndulo educativo.</p>
+                <div class="stat-grid">
+                    <div class="stat-card reveal">
+                        <span class="stat-number">45%</span>
+                        <span class="stat-label">Deserción en Nivel Medio Superior <br>(Proyección 2025)</span>
+                    </div>
+                    <div class="stat-card reveal">
+                        <span class="stat-number">10.2</span>
+                        <span class="stat-label">Años de escolaridad promedio <br>(México Evalúa 2025)</span>
+                    </div>
+                    <div class="stat-card reveal">
+                        <span class="stat-number">2x</span>
+                        <span class="stat-label">Brecha de aprendizaje Rural vs Urbano <br>(OCDE 2025)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEBATE MULTIMEDIA CON AUDIO REAL -->
+        <section id="debate" class="debate-section">
+            <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;">
+                <div class="reveal">
+                    <h2 class="section-title" style="text-align: left;">Fuentes de Debate</h2>
+                    <p style="font-size: 1.2rem; color: #444; margin-bottom: 2rem; line-height: 1.6;">La educación en México no necesita más reformas cosméticas, sino una comprensión profunda de su historia y su futuro digital. Escuche un fragmento de la tesis central de esta obra.</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1.2rem; display: flex; align-items: center;"><span style="color: var(--gold-subtle); margin-right: 15px; font-size: 1.5rem;">◈</span> <strong>Audio-Ensayo:</strong> El Movimiento del Péndulo</li>
+                        <li style="margin-bottom: 1.2rem; display: flex; align-items: center;"><span style="color: var(--gold-subtle); margin-right: 15px; font-size: 1.5rem;">◈</span> <strong>Análisis:</strong> El Estado Pedagogo vs El Estado Gerente</li>
+                        <li style="margin-bottom: 1.2rem; display: flex; align-items: center;"><span style="color: var(--gold-subtle); margin-right: 15px; font-size: 1.5rem;">◈</span> <strong>Propuesta:</strong> Hacia un modelo de síntesis humana-digital</li>
+                    </ul>
+                </div>
+                <div class="reveal">
+                    <!-- CONTENEDOR DE AUDIO INTERACTIVO -->
+                    <div class="audio-experience" onclick="toggleAudio()">
+                        <div id="playIcon" class="audio-icon">◈</div>
+                        <span id="audioLabel" style="font-family: var(--font-main); font-style: italic; font-size: 1.4rem; letter-spacing: 1px;">Escuchar: "Romper el Péndulo"</span>
+                        <div class="audio-waves">
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                            <div class="wave-bar"></div>
+                        </div>
+                        <audio id="mainAudio">
+                            <source src="assets/Audiodelgis.wav" type="audio/wav">
+                            Su navegador no soporta el elemento de audio.
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVELACIONES (MANTENIDA PERO REFINADA) -->
+        <section id="investigacion" class="value-section">
+            <div class="container">
+                <h2 class="section-title" style="text-align:center;">Dimensiones de la Investigación</h2>
+                <div class="value-grid">
+                    <div class="value-item reveal">
+                        <span class="value-icon">⌬</span>
+                        <h4>La Trampa de los Extremos</h4>
+                        <p>Análisis sociopolítico sobre por qué saltar del control estatal a la métrica gerencial ha fallado sistemáticamente.</p>
+                    </div>
+                    <div class="value-item reveal">
+                        <span class="value-icon">⎔</span>
+                        <h4>El Laberinto Docente</h4>
+                        <p>Un estudio fenomenológico sobre la soledad del maestro frente a las reformas burocráticas.</p>
+                    </div>
+                    <div class="value-item reveal">
+                        <span class="value-icon">✦</span>
+                        <h4>La Síntesis del Futuro</h4>
+                        <p>Propuesta técnica para integrar el rigor académico con las posibilidades de la autonomía digital.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOQUE DE ACCIÓN INTERMEDIO -->
+        <section class="cta-break">
+            <div class="container">
+                <h2 class="reveal">"Hacia una nueva conciencia educativa en la era del clic."</h2>
+                <button onclick="openModal()" style="background:white; color:var(--accent-color); border:none; padding:1.5rem 4rem; font-size:1.2rem; font-weight:bold; cursor:pointer; text-transform:uppercase; letter-spacing:2px; border-radius:2px;">Solicitar Dossier de Investigación</button>
+            </div>
+        </section>
+
+        <!-- OBRA (CAPÍTULOS) -->
+        <section id="obra" style="padding:8rem 0; background:var(--bg-color);">
+            <div class="container">
+                <h2 class="section-title" style="text-align:center; margin-bottom:4rem;">Estructura Académica</h2>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:2rem;">
+                    
+                    <div class="chapter-card reveal">
+                        <small style="color:var(--gold-subtle); letter-spacing:3px; font-weight:bold; text-transform:uppercase;">Capítulo I</small>
+                        <p style="font-style:italic; margin:1rem 0; font-size:1.2rem;">"El ocaso del modelo nacionalista: cuando la escuela dejó de ser el espejo de la nación."</p>
+                        <button onclick="openModal()" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer; text-decoration:underline; font-family:inherit; text-align:left;">Consultar Tesis</button>
+                    </div>
+
+                    <div class="chapter-card reveal">
+                        <small style="color:var(--gold-subtle); letter-spacing:3px; font-weight:bold; text-transform:uppercase;">Capítulo III</small>
+                        <p style="font-style:italic; margin:1rem 0; font-size:1.2rem;">"La solución gerencial: el docente atrapado en una métrica punitiva que ignora el aula."</p>
+                        <button onclick="openModal()" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer; text-decoration:underline; font-family:inherit; text-align:left;">Ver Análisis de Datos</button>
+                    </div>
+
+                    <div class="chapter-card reveal" style="background:var(--accent-color); color:white;">
+                        <small style="color:var(--gold-subtle); letter-spacing:3px; font-weight:bold; text-transform:uppercase;">Epílogo</small>
+                        <p style="font-style:italic; margin:1rem 0; font-size:1.2rem; color:#eee;">"Romper el péndulo: la síntesis necesaria para un futuro humano en la era digital."</p>
+                        <button onclick="openModal()" style="background:none; border:none; color:var(--gold-subtle); font-weight:bold; cursor:pointer; text-decoration:underline; font-family:inherit; text-align:left;">Conclusión Maestra</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- AUTOR -->
+        <section id="autor" style="padding:10rem 0; background:white;">
+            <div class="container" style="display:grid; grid-template-columns: 1fr 1fr; align-items:center; gap:4rem;">
+                <div class="reveal">
+                    <h2 class="section-title" style="text-align:left; font-size:3rem; margin-bottom:1rem;">Marco Antonio León Zaragoza</h2>
+                    <p style="font-size:1.4rem; font-style:italic; color:var(--accent-color); margin-bottom:2rem;">Doctor en Políticas Públicas & Investigador</p>
+                    <p style="font-size:1.1rem; color:#444; line-height: 1.6;">Especialista en modelos educativos y políticas públicas con formación internacional. Su investigación se centra en la transición sistémica de la educación frente al desafío digital.</p>
+                </div>
+                <div class="reveal" style="display:flex; justify-content:center;">
+                    <div style="background: url('assets/Google_AI_Studio_2026-01-03T02_33_30.885Z.png') no-repeat center/cover; height:500px; width:400px; border: 15px solid white; box-shadow: 20px 20px 0px var(--accent-color);"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL PREMIUM REESTRUCTURADO -->
+    <div id="adquirirModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <div class="modal-header-pro">
+                <h2>Vínculo Académico</h2>
+                <p>Establezca un contacto directo para colaboraciones, conferencias o para obtener la edición impresa de la investigación.</p>
+            </div>
+
+            <form action="https://formspree.io/f/leonmarcoantonio@gmail.com" method="POST" class="form-pro">
+                <input type="text" name="name" required placeholder="Nombre Completo" class="input-pro">
+                <input type="text" name="org" required placeholder="Institución / Universidad" class="input-pro">
+                <input type="email" name="email" required placeholder="Correo institucional o personal" class="input-pro">
+                <textarea name="message" rows="3" placeholder="Motivo del vínculo (Investigación, Edición Impresa, Conferencias...)" class="input-pro"></textarea>
+                
+                <button type="submit" class="btn-confirm-final">Enviar Petición</button>
+            </form>
+        </div>
+    </div>
+
+    <footer style="padding:6rem 0; background:#0a0a0a; color:white; text-align:center;">
+        <div class="container">
+            <h2 style="letter-spacing:10px; margin-bottom:2rem; opacity:0.8;">DEL GIS AL CLIC</h2>
+            <p>&copy; 2026 Marco Antonio León Zaragoza</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAudio() {
+            const audio = document.getElementById('mainAudio');
+            const icon = document.getElementById('playIcon');
+            const label = document.getElementById('audioLabel');
+            
+            if (audio.paused) {
+                audio.play();
+                icon.innerHTML = "⏸";
+                label.innerHTML = "Reproduciendo fragmento...";
+            } else {
+                audio.pause();
+                icon.innerHTML = "◈";
+                label.innerHTML = "Escuchar: \"Romper el Péndulo\"";
+            }
+        }
+
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        function openModal() { document.getElementById('adquirirModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('adquirirModal').style.display = 'none'; }
+        window.onclick = function(event) {
+            let modal = document.getElementById('adquirirModal');
+            if (event.target == modal) { closeModal(); }
+        }
+    </script>
+</body>
+</html>
+ndowHeight - 100) { reveals[i].classList.add("active"); }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        function openModal() { document.getElementById('adquirirModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('adquirirModal').style.display = 'none'; }
+        window.onclick = function(event) {
+            let modal = document.getElementById('adquirirModal');
+            if (event.target == modal) { closeModal(); }
+        }
+    </script>
+</body>
+</html>

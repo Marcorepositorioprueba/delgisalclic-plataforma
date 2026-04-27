@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Del Gis al Clic | Experiencia Interactiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/premium.css">
+</head>
+<body>
+
+    <!-- HERO SECTION: EL LIBRO QUE COBRA VIDA -->
+    <header class="hero-book-stage">
+        <div class="book-3d">
+            <div class="book-cover-3d"></div>
+            <div class="book-inside-page">
+                <h3 style="font-family: var(--font-sans); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px;">Introducción</h3>
+                <p style="margin-top: 1rem; font-size: 1.1rem; line-height: 1.4;">"A principios de los años noventa, México vivía una era de profundas contradicciones... el futuro de millones se forjaba en las aulas."</p>
+            </div>
+        </div>
+        <div style="position: absolute; bottom: 50px; text-align: center; width: 100%;">
+            <p class="transition-fade" style="font-style: italic; color: var(--text-muted);">Desliza para abrir la investigación</p>
+        </div>
+    </header>
+
+    <!-- ESTACIÓN 1: EL OCASO DEL MODELO NACIONALISTA -->
+    <section class="chapter-station station-pizarra" id="cap1">
+        <div class="reveal">
+            <h3 style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 1rem;">Capítulo 1</h3>
+            <h2>La Fractura de los Noventa</h2>
+            <div class="chalk-text">
+                "La falla del sistema educativo no fue solo su lentitud para adoptar la tecnología, sino su incapacidad para comprender que el nuevo capital humano se definía por su flexibilidad."
+            </div>
+            <p style="margin-top: 2rem; max-width: 600px;">El Acuerdo Nacional para la Modernización (ANMEB) de 1992 fue un intento de reforma administrativa que no se atrevió a ser una reforma política. Se transfirieron problemas, pero no poder real.</p>
+        </div>
+    </section>
+
+    <!-- ESTACIÓN 2: LA CONSTRUCCIÓN DEL CIMIENTO -->
+    <section class="chapter-station" id="cap2">
+        <div class="reveal">
+            <h3 style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 1rem; color: var(--gold);">Capítulo 2</h3>
+            <h2>Disciplina Scribendi</h2>
+            <p class="highlight-quote">"La predictibilidad del aula preparaba para la predictibilidad de la fábrica."</p>
+            <p style="max-width: 700px; margin-bottom: 2rem;">Lejos de ser un accidente, el silencio normativo y la tarima del docente respondían a una lógica: asegurar la transmisión fidedigna de saberes en un país que necesitaba cohesión.</p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div style="padding: 1.5rem; background: #f9f9f9; border-left: 3px solid var(--midnight);">
+                    <strong>El Gis (Tradición):</strong> La memoria, el dictado y la estructura como cimiento necesario.
+                </div>
+                <div style="padding: 1.5rem; background: #f9f9f9; border-left: 3px solid var(--gold);">
+                    <strong>El Clic (Ruptura):</strong> El acceso instantáneo al saber que subvierte la primacía de la memorización.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTACIÓN 3: EL PÉNDULO EDUCATIVO -->
+    <section class="chapter-station station-dark" style="background: #111; color: white;">
+        <div class="reveal">
+            <h2 style="color: white; text-align: center;">El Movimiento del Péndulo</h2>
+            <p style="text-align: center; font-style: italic; margin-bottom: 3rem;">Un ciclo de reformas que oscila entre el Estado Pedagogo y el Estado Gerente.</p>
+            
+            <div class="pendulo-container">
+                <!-- Aquí integraremos el SVG del péndulo interactivo mañana -->
+                <img src="assets/tablamodelos.png" style="width: 100%; height: 100%; object-fit: contain; opacity: 0.8;">
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#contacto" class="btn-premium">Descargar Investigación Completa</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESTACIÓN 4: VOCES DESDE EL TERRENO -->
+    <section class="chapter-station" id="voces">
+        <div class="reveal">
+            <h3 style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 1rem; color: var(--gold);">Capítulo 6</h3>
+            <h2>Un Eco de Confusión</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 2rem;">
+                <div class="voice-card">
+                    <p style="font-style: italic;">"Nos piden ser investigadores y tecnólogos, pero con el mismo sueldo y sin formación. Es un salto al vacío."</p>
+                    <small>— Voz del Magisterio</small>
+                </div>
+                <div class="voice-card">
+                    <p style="font-style: italic;">"El nuevo modelo obliga a las familias a buscar fuera de la escuela la preparación que el sistema público dejó de ofrecer."</p>
+                    <small>— Voz de los Padres</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PREMIUM -->
+    <footer style="padding: 5rem 10vw; background: var(--midnight); color: white; text-align: center;">
+        <h1 style="font-size: 2rem; letter-spacing: 5px; margin-bottom: 2rem;">DEL GIS AL CLIC</h1>
+        <p style="opacity: 0.7;">Investigación por Marco Antonio León Zaragoza &copy; 2026</p>
+        <div style="margin-top: 2rem;">
+            <a href="index.html" style="color: var(--gold); text-decoration: none;">Volver al Portal Principal</a>
+        </div>
+    </footer>
+
+    <script src="js/premium_logic.js"></script>
+</body>
+</html>

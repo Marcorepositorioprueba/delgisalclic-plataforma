@@ -1,0 +1,171 @@
+/* === DEL GIS AL CLIC: PREMIUM WEB CSS V1.0 === */
+
+:root {
+    --midnight: #1a3a5a;
+    --gold: #c5a059;
+    --editorial-bg: #fcfaf7;
+    --chalk-green: #2d5a4c;
+    --text-main: #1a1a1a;
+    --text-muted: #555;
+    --font-serif: 'EB Garamond', serif;
+    --font-sans: 'Avenir Next', 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--editorial-bg);
+    color: var(--text-main);
+    font-family: var(--font-serif);
+    font-size: 18px;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* TRANSICIONES GLOBALES */
+.transition-fade {
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* --- HERO: EL LIBRO QUE COBRA VIDA --- */
+.hero-book-stage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #fff 0%, #e0dcd0 100%);
+    position: relative;
+    perspective: 2000px;
+}
+
+.book-3d {
+    width: 350px;
+    height: 500px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.book-3d.open {
+    transform: rotateY(-30deg) rotateX(10deg);
+}
+
+.book-cover-3d {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('../assets/portada.jpg') no-repeat center/cover;
+    transform-origin: left;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.3);
+}
+
+.book-3d.open .book-cover-3d {
+    transform: rotateY(-160deg);
+}
+
+.book-inside-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    padding: 3rem;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.05);
+    z-index: 5;
+}
+
+/* --- SECCIONES DE CAPÍTULO (STATIONS) --- */
+.chapter-station {
+    min-height: 100vh;
+    padding: 10vh 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.chapter-station:nth-child(even) {
+    background-color: white;
+}
+
+/* Estilo Pizarra (Cap 1 & 2) */
+.station-pizarra {
+    background-color: var(--chalk-green);
+    color: white;
+}
+
+.station-pizarra h2 {
+    color: white;
+    border-bottom: 2px solid white;
+}
+
+.chalk-text {
+    font-family: 'EB Garamond', italic;
+    font-size: 2rem;
+    opacity: 0.9;
+    letter-spacing: 1px;
+}
+
+/* --- TIPOGRAFÍA PREMIUM --- */
+h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    color: var(--midnight);
+    line-height: 1.1;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.highlight-quote {
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--gold);
+    margin: 2rem 0;
+    padding-left: 2rem;
+    border-left: 4px solid var(--gold);
+}
+
+/* --- PÉNDULO INTERACTIVO WEB --- */
+.pendulo-container {
+    width: 100%;
+    height: 400px;
+    background: #f0f0f0;
+    margin-top: 3rem;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- BOTONES Y CTAS --- */
+.btn-premium {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background: var(--midnight);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.4s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-premium:hover {
+    background: var(--gold);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(197, 160, 89, 0.4);
+}
+
+/* --- RESPONSIVO --- */
+@media (max-width: 768px) {
+    h2 { font-size: 2.5rem; }
+    .chapter-station { padding: 5vh 5vw; }
+}
