@@ -34,6 +34,17 @@
         .ticker { display: inline-block; white-space: nowrap; animation: ticker 40s linear infinite; }
         .ticker-item { display: inline-block; padding: 0 4rem; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
 
+        /* MODAL BIENVENIDA PREMIUM */
+        .modal-welcome { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(15px); display: none; align-items: center; justify-content: center; z-index: 11000; padding: 2rem; }
+        .modal-welcome-content { display: flex; align-items: center; gap: 4rem; max-width: 1000px; width: 100%; background: white; padding: 4rem; border-radius: 20px; box-shadow: 0 40px 100px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); }
+        .modal-welcome-image { flex: 1; }
+        .modal-welcome-text { flex: 1.2; }
+
+        @media (max-width: 900px) {
+            .modal-welcome-content { flex-direction: column; padding: 2rem; text-align: center; gap: 2rem; }
+            .modal-welcome { padding: 1rem; }
+        }
+
         /* HERO RESPONSIVO */
         .hero-header { padding: 4rem 1rem 2rem 1rem; text-align: center; }
         .hero-main-title { font-size: 3rem; font-family: var(--font-main); color: var(--accent-color); margin-bottom: 0.5rem; line-height: 1.2; }
@@ -65,12 +76,51 @@
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 20, 35, 0.98); display: none; align-items: center; justify-content: center; z-index: 10000; overflow-y: auto; padding: 1rem; }
         .modal-content { background:#fff; padding:3rem 2rem; max-width:850px; width:100%; position:relative; border-top: 8px solid var(--gold-subtle); box-shadow: 0 50px 100px rgba(0,0,0,0.5); }
         
-        .adquirir-options { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
-        .option-box { padding: 1.5rem; border: 1px solid #eee; border-radius: 8px; text-align: center; }
-        .option-title { font-family: var(--font-main); font-size: 1.5rem; color: var(--accent-color); margin-bottom: 1rem; }
+        /* MODAL ADQUIRIR PREMIUM */
+        .option-box { 
+            padding: 2.5rem 1.5rem; 
+            border: 1px solid #f0f0f0; 
+            border-radius: 12px; 
+            text-align: center; 
+            transition: all 0.4s ease; 
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .option-box:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08); 
+            border-color: var(--gold-subtle);
+        }
+        .option-title { font-family: var(--font-main); font-size: 1.6rem; color: var(--accent-color); margin-bottom: 0.5rem; }
         
-        .input-premium { width: 100%; padding: 1rem; border: 1px solid #eee; font-family: inherit; font-size: 1rem; background: #fafafa; margin-bottom: 1.5rem; border-radius: 4px; }
-        .form-label { font-size: 0.8rem; font-weight: bold; color: var(--accent-color); text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+        .btn-premium-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+        .btn-ml-premium { background: #FFE600; color: #2D3277 !important; border: 1px solid #E6D000; }
+        .btn-ml-premium:hover { background: #F5CF00; box-shadow: 0 10px 20px rgba(255, 230, 0, 0.3); }
+        
+        .btn-contact-premium { background: var(--accent-color); color: white !important; }
+        .btn-contact-premium:hover { background: #2a4a6a; box-shadow: 0 10px 20px rgba(26, 58, 90, 0.3); }
+
+        .icon-ml { height: 24px; width: auto; }
+        .icon-svg { width: 20px; height: 20px; fill: currentColor; }
 
         @media (max-width: 900px) {
             .nav-container { justify-content: center; padding: 1rem; }
@@ -220,16 +270,22 @@
             <span style="position:absolute; top:1rem; right:1.5rem; font-size:2rem; cursor:pointer; color:#ccc;" onclick="closeModal()">&times;</span>
             <h2 style="font-family: var(--font-main); font-size: 2rem; color: var(--accent-color); margin-bottom: 1rem;" data-i18n="modal-title">Adquirir la obra</h2>
             
-            <div class="adquirir-options">
+            <div class="adquirir-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
                 <div class="option-box">
                     <h3 class="option-title" data-i18n="opt-buy-title">Compra Directa</h3>
                     <p style="font-size: 0.85rem; color:#666; margin-bottom: 1.5rem;" data-i18n="opt-buy-text">Adquiera su ejemplar físico con envío seguro a todo México.</p>
-                    <a href="https://listado.mercadolibre.com.mx/del-gis-al-clic" target="_blank" class="btn-ml">Mercado Libre</a>
+                    <a href="https://listado.mercadolibre.com.mx/del-gis-al-clic" target="_blank" class="btn-premium-action btn-ml-premium">
+                        <img src="assets/ML.png" class="icon-ml" alt="Mercado Libre">
+                        Mercado Libre
+                    </a>
                 </div>
                 <div class="option-box">
                     <h3 class="option-title" data-i18n="opt-contact-title">Vínculo Académico</h3>
                     <p style="font-size: 0.85rem; color:#666; margin-bottom: 1.5rem;" data-i18n="opt-contact-text">Para presentaciones, foros o pedidos institucionales.</p>
-                    <button class="btn-contact-trigger" onclick="showForm()" data-i18n="opt-contact-btn">Contactar</button>
+                    <button class="btn-premium-action btn-contact-premium" onclick="showForm()">
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M20,4H4C2.9,4,2,4.9,2,6v12c0,1.1,0.9,2,2,2h16c1.1,0,2-0.9,2-2V6C22,4.9,21.1,4,20,4z M20,18H4V8l8,5l8-5V18z M12,11L4,6h16L12,11z"/></svg>
+                        Contáctanos
+                    </button>
                 </div>
             </div>
 
@@ -252,6 +308,19 @@
         </div>
     </div>
 
+    <div id="welcomeModal" class="modal-welcome">
+        <div class="modal-welcome-content">
+            <div class="modal-welcome-image">
+                <img src="assets/libroexhibido.png" alt="Del Gis al Clic" style="max-width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
+            </div>
+            <div class="modal-welcome-text">
+                <h2 style="font-family: 'EB Garamond', serif; font-size: 2.8rem; color: #1a3a5a; margin-bottom: 1rem; line-height: 1.1;">Bienvenido a la plataforma</h2>
+                <p style="font-family: 'EB Garamond', serif; font-size: 1.3rem; color: #c5a059; font-style: italic; margin-bottom: 2rem;">"Del Gis al Clic: La educación en una nueva encrucijada"</p>
+                <button onclick="closeWelcomeModal()" style="background: #1a3a5a; color: white; border: none; padding: 1rem 3rem; font-family: 'EB Garamond', serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border-radius: 4px; transition: 0.3s;">Explorar Investigación</button>
+            </div>
+        </div>
+    </div>
+
     <footer style="padding:4rem 0; background:#fff; border-top: 1px solid #eee; text-align:center;">
         <h2 style="letter-spacing:5px; font-size: 1rem; color: var(--accent-color);">DEL GIS AL CLIC</h2>
         <p style="color: #bbb; font-size: 0.8rem; margin-bottom: 2rem;">&copy; 2026 Dr. Marco Antonio León Zaragoza</p>
@@ -266,6 +335,7 @@
     <script>
         function openModal() { document.getElementById('adquirirModal').style.display = 'flex'; document.getElementById('formContainer').style.display = 'none'; }
         function closeModal() { document.getElementById('adquirirModal').style.display = 'none'; }
+        function closeWelcomeModal() { document.getElementById('welcomeModal').style.display = 'none'; }
         function showForm() { document.getElementById('formContainer').style.display = 'block'; }
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
@@ -275,7 +345,13 @@
                 if (elementTop < windowHeight - 50) { reveals[i].classList.add("active"); }
             }
         }
-        window.addEventListener("scroll", reveal); 
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("DOMContentLoaded", () => {
+            reveal(); 
+            setTimeout(() => {
+                document.getElementById('welcomeModal').style.display = 'flex';
+            }, 500);
+        });
     </script>
 </body>
 </html>
