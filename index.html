@@ -8,9 +8,11 @@
     <!-- Meta etiquetas para compartir (WhatsApp, Facebook, LinkedIn) -->
     <meta property="og:title" content="Del Gis al Clic | Dr. Marco Antonio León Zaragoza">
     <meta property="og:description" content="La educación en una nueva encrucijada. Explore la investigación y numeralia sobre el sistema educativo mexicano.">
-    <meta property="og:image" content="https://delgisalclic.com/assets/link.jpg">
+    <meta property="og:image" content="https://delgisalclic.com/assets/booklink.jpg">
     <meta property="og:url" content="https://delgisalclic.com">
     <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://delgisalclic.com/assets/booklink.jpg">
 
     <link rel="stylesheet" href="css/estilos.css">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
@@ -33,9 +35,9 @@
         .btn-adquirir-nav { background: var(--accent-color); color: white !important; padding: 0.6rem 1.5rem; border-radius: 4px; border: none; cursor: pointer; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
         
         /* SELECTOR DE IDIOMA */
-        .lang-selector { display: flex; gap: 10px; margin-left: 20px; font-size: 0.75rem; font-weight: bold; }
-        .lang-btn { cursor: pointer; color: #ccc; transition: 0.3s; }
-        .lang-btn.active { color: var(--gold-subtle); border-bottom: 1px solid; }
+        .lang-selector { display: flex; gap: 15px; margin-left: 25px; font-size: 0.95rem; font-weight: bold; align-items: center; }
+        .lang-btn { cursor: pointer; color: #bbb; transition: 0.3s; padding: 2px 5px; }
+        .lang-btn.active { color: var(--accent-color); border-bottom: 2px solid var(--gold-subtle); }
 
         /* CINTILLO */
         .ticker-wrap { width: 100%; overflow: hidden; background: #fcfaf7; color: var(--accent-color); padding: 10px 0; border-bottom: 1px solid #eee; }
@@ -59,12 +61,25 @@
         .hero-author { font-size: 1.2rem; color: var(--gold-subtle); letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 1.5rem; }
         .hero-quote { font-family: var(--font-main); font-style: italic; font-size: 1.3rem; color: #666; max-width: 800px; margin: 0 auto 3rem auto; line-height: 1.5; padding: 0 1rem; }
 
+        .pull-quote-card {
+            background: #fdfcfb;
+            border-left: 4px solid var(--gold-subtle);
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: var(--font-main);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
         .hero-interactive-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 1rem 6rem 1rem; }
         
         .radar-mega-box { background: #fff; padding: 2.5rem; border-radius: 15px; box-shadow: 0 20px 50px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; }
         .state-select-premium { width: 100%; background: transparent; color: var(--accent-color); border: none; border-bottom: 1px solid var(--gold-subtle); font-family: var(--font-main); font-size: 1.3rem; padding: 0.5rem; margin-bottom: 1.5rem; cursor: pointer; text-align: center; font-weight: bold; outline: none; }
 
-        .radar-desc { font-size: 0.9rem; color: #777; font-style: italic; text-align: center; margin-bottom: 2rem; line-height: 1.4; padding: 0 2rem; }
+        .radar-desc { font-size: 0.9rem; color: #777; font-style: italic; text-align: center; margin-bottom: 1rem; line-height: 1.4; padding: 0 2rem; }
+        .clarification-note { font-size: 0.75rem; color: #999; text-align: center; margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.3; }
 
         .state-summary-panel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #f0f0f0; }
         .summary-item span { display: block; font-size: 0.6rem; text-transform: uppercase; color: #999; margin-bottom: 4px; }
@@ -121,14 +136,37 @@
             text-decoration: none;
             border: none;
         }
-        .btn-ml-premium { background: #FFE600; color: #2D3277 !important; border: 1px solid #E6D000; }
-        .btn-ml-premium:hover { background: #F5CF00; box-shadow: 0 10px 20px rgba(255, 230, 0, 0.3); }
+        .btn-ml-premium { background: white; color: #2D3277 !important; border: 2px solid #FFE600; }
+        .btn-ml-premium:hover { background: #FFE600; box-shadow: 0 10px 20px rgba(255, 230, 0, 0.3); }
         
         .btn-contact-premium { background: var(--accent-color); color: white !important; }
         .btn-contact-premium:hover { background: #2a4a6a; box-shadow: 0 10px 20px rgba(26, 58, 90, 0.3); }
 
-        .icon-ml { height: 24px; width: auto; }
+        .icon-ml { height: 45px; width: auto; transition: 0.3s; }
+        .option-box:hover .icon-ml { transform: scale(1.1); }
         .icon-svg { width: 20px; height: 20px; fill: currentColor; }
+        .book-card-preview { max-height: 160px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15)); transition: 0.5s; }
+        .option-box:hover .book-card-preview { transform: scale(1.05) rotate(-3deg); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25)); }
+
+        .btn-close-text {
+            background: none;
+            border: 1px solid #ddd;
+            color: #888;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-close-text:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: #f8f9fa;
+        }
 
         @media (max-width: 900px) {
             .nav-container { justify-content: center; padding: 1rem; }
@@ -187,6 +225,7 @@
         <section id="numeralia" class="hero-interactive-grid">
             <div class="radar-mega-box reveal">
                 <p class="radar-desc" data-i18n="radar-desc">Este explorador permite visualizar la brecha entre el "deber ser" normativo y la realidad operativa de cada entidad federativa mediante un análisis multidimensional.</p>
+                <p class="clarification-note" style="font-size: 0.75rem; color: #999; text-align: center; margin-bottom: 2rem; max-width: 600px; margin: 0 auto 2rem auto; line-height: 1.3;">Nota: Los datos aquí presentados ofrecen el contexto cuantitativo de la crisis educativa. El libro, por el contrario, se adentra en el análisis cualitativo, filosófico y humano para proponer cómo romper el péndulo desde la práctica docente.</p>
                 <select id="stateSelector" class="state-select-premium" onchange="updateStateProfile(this.value)"></select>
                 <div style="height: 400px; width: 100%;">
                     <canvas id="radarChart"></canvas>
@@ -201,6 +240,9 @@
             </div>
 
             <div class="hero-book-area reveal" style="text-align: center;">
+                <div class="pull-quote-card" style="background: #fdfcfb; border-left: 4px solid var(--gold-subtle); padding: 2rem; margin-bottom: 2rem; font-family: var(--font-main); font-size: 1.2rem; font-style: italic; color: var(--accent-color); box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: left;">
+                    "No buscamos nuevos datos, sino nuevas miradas. El aula no es una estadística, es un territorio de encuentros humanos."
+                </div>
                 <div class="book-container">
                     <div class="book-flip">
                         <div style="position: absolute; width: 45px; height: 100%; background: var(--accent-color); transform: rotateY(-90deg) translateZ(22.5px); left: -22.5px;"></div>
@@ -217,7 +259,10 @@
 
         <section class="reveal" style="padding: 4rem 0; text-align: center;">
             <div class="container" style="padding: 0 2rem;">
-                <p style="max-width: 900px; margin: 0 auto; color: var(--accent-color); font-size: 1.5rem; font-family: var(--font-main); font-style: italic;" data-i18n="quote-mid">
+                <div class="pull-quote-card" style="background: #fdfcfb; border-left: 4px solid var(--gold-subtle); padding: 2rem; margin: 0 auto 2rem auto; font-family: var(--font-main); font-size: 1.2rem; font-style: italic; color: var(--accent-color); box-shadow: 0 10px 30px rgba(0,0,0,0.03); max-width: 800px; text-align: left;">
+                    "El 'Gis' representa la herencia y el rigor; el 'Clic', la ventana a lo infinito. Romper el péndulo es lograr que ambos dialoguen en favor del alumno."
+                </div>
+                <p style="max-width: 900px; margin: 2rem auto; color: var(--accent-color); font-size: 1.5rem; font-family: var(--font-main); font-style: italic;" data-i18n="quote-mid">
                     "La educación competitiva tiene como base irrenunciable el dominio de las ciencias duras y el pensamiento lógico; es el andamiaje sobre el cual se construye la soberanía intelectual."
                 </p>
                 <div style="width: 80px; border-bottom: 2px solid var(--gold-subtle); margin: 2rem auto;"></div>
@@ -280,14 +325,20 @@
             
             <div class="adquirir-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
                 <div class="option-box">
+                    <div style="background: #f9f9f9; width: 100%; border-radius: 8px; margin-bottom: 1.5rem; padding: 1.5rem; display: flex; align-items: center; justify-content: center; min-height: 200px; overflow: hidden;">
+                        <img src="assets/libroexhibido.png" class="book-card-preview" alt="Vista previa del libro">
+                    </div>
                     <h3 class="option-title" data-i18n="opt-buy-title">Compra Directa</h3>
                     <p style="font-size: 0.85rem; color:#666; margin-bottom: 1.5rem;" data-i18n="opt-buy-text">Adquiera su ejemplar físico con envío seguro a todo México.</p>
                     <a href="https://listado.mercadolibre.com.mx/del-gis-al-clic" target="_blank" class="btn-premium-action btn-ml-premium">
                         <img src="assets/ML.png" class="icon-ml" alt="Mercado Libre">
-                        Mercado Libre
+                        <span style="font-weight: 800;">MERCADO LIBRE</span>
                     </a>
                 </div>
                 <div class="option-box">
+                    <div style="background: #f9f9f9; width: 100%; border-radius: 8px; margin-bottom: 1.5rem; padding: 1.5rem; display: flex; align-items: center; justify-content: center; min-height: 200px;">
+                        <svg style="width: 80px; height: 80px; fill: var(--accent-color); opacity: 0.8;" viewBox="0 0 24 24"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12.5,7H11v6l5.25,3.15l0.75-1.23L12.5,12.5V7z"/></svg>
+                    </div>
                     <h3 class="option-title" data-i18n="opt-contact-title">Vínculo Académico</h3>
                     <p style="font-size: 0.85rem; color:#666; margin-bottom: 1.5rem;" data-i18n="opt-contact-text">Para presentaciones, foros o pedidos institucionales.</p>
                     <button class="btn-premium-action btn-contact-premium" onclick="showForm()">
@@ -319,12 +370,12 @@
     <div id="welcomeModal" class="modal-welcome">
         <div class="modal-welcome-content">
             <div class="modal-welcome-image">
-                <img src="assets/libroexhibido.png" alt="Del Gis al Clic" style="max-width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
+                <img src="assets/booklink.jpg" alt="Del Gis al Clic" style="max-width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));">
             </div>
             <div class="modal-welcome-text">
                 <h2 style="font-family: 'EB Garamond', serif; font-size: 2.8rem; color: #1a3a5a; margin-bottom: 1rem; line-height: 1.1;">Bienvenido a la plataforma</h2>
                 <p style="font-family: 'EB Garamond', serif; font-size: 1.3rem; color: #c5a059; font-style: italic; margin-bottom: 2rem;">"Del Gis al Clic: La educación en una nueva encrucijada"</p>
-                <button onclick="closeWelcomeModal()" style="background: #1a3a5a; color: white; border: none; padding: 1rem 3rem; font-family: 'EB Garamond', serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border-radius: 4px; transition: 0.3s;">Explorar Investigación</button>
+                <button onclick="closeWelcomeModal()" style="background: #1a3a5a; color: white; border: none; padding: 1rem 3rem; font-family: 'EB Garamond', serif; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border-radius: 4px; transition: 0.3s;">Explora el libro</button>
             </div>
         </div>
     </div>
